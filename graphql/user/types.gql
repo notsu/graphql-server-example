@@ -1,0 +1,20 @@
+type User {
+  id: Int
+  name: String
+  position: String
+  polls: [Poll]
+  topics: [Topic]
+  articles: [Article]
+}
+
+type Query {
+  user(id: Int!): User
+  users: [User]
+}
+
+type Mutation {
+  createUser(
+    name: String!
+    position: String!
+  ): User
+}

@@ -1,0 +1,24 @@
+type Article {
+  id: Int
+  title: String
+  author: User
+  comments: [ArticleComment]
+}
+
+type ArticleComment {
+  id: Int
+  articleId: Int
+  body: String
+}
+
+type Query {
+  article(id: Int): Article
+  articles: [Article]
+}
+
+type Mutation {
+  createArticle(
+    title: String!
+    authorId: Int!
+  ): Boolean
+}

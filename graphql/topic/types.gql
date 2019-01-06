@@ -1,0 +1,17 @@
+type Topic {
+  id: Int
+  title: String
+  creator: User
+}
+
+type Query {
+  topic(id: Int): Topic
+  topics: [Topic]
+}
+
+type Mutation {
+  createTopic(
+    title: String!
+    creatorId: Int!
+  ): Topic
+}

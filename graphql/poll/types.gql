@@ -1,0 +1,28 @@
+type Poll {
+  id: Int
+  title: String
+  choices: [Choice]
+  choice(id: Int): Choice
+  creator: User
+}
+
+type Choice {
+  title: String
+  point: Int
+}
+
+type Query {
+  poll(id: Int): Poll
+  polls: [Poll]
+}
+
+type Mutation {
+  createPoll(
+    title: String!
+    creatorId: Int!
+  ): Poll
+  votePoll(
+    id: Int!
+    choice: Int!
+  ): Choice
+}
