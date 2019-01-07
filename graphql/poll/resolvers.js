@@ -1,5 +1,8 @@
 const { Poll: pollModels, Choice: choiceModels } = require("./models");
 const userModels = require("../user/models")
+const pubsub = require("../../connectors/pubsub")
+
+const CHOICE_VOTED = "CHOICE_VOTED";
 
 module.exports = {
   Query: {
@@ -18,31 +21,41 @@ module.exports = {
       return pollModels.create({ title, creatorId });
     },
     createChoice: async (_, { pollId, title }) => {
-      return choiceModels.create({ pollId, title, point: 0 })
+      return choiceModels.create({ pollId, title, point: 0 });
     },
     votePoll: async (_, { id, choice: choiceId }) => {
-      const choice = choiceModels.findOne({ where: { pollId: id, id: choiceId } })
+      const choice = await choiceModels.findOne({
+        where: { pollId: id, id: choiceId }
+      });
 
       if (choice) {
-        choice.point += 1
-        choice.save()
+        choice.point += 1;
+        choice.save();
+        pubsub.publish(CHOICE_VOTED, { pollVoted: choice });
       }
 
-      return choice
-    },
-  },
-  Poll: {
-    choices: async (parent) => {
-      const choices = choiceModels.findAll({ where: { pollId: parent.id } })
-      return choices
-    },
-    choice: async (parent, args) => {
-      const choice = choiceModels.findOne({ where: { pollId: parent.id, id: args.id } })
-      return choice
-    },
-    creator: async (parent) => {
-      const creator = userModels.findOne({ where: { id: parent.creatorId }});
-      return creator
+      return choice;
     }
   },
+  Subscription: {
+    pollVoted: {
+      subscribe: () => pubsub.asyncIterator([CHOICE_VOTED])
+    }
+  },
+  Poll: {
+    choices: async parent => {
+      const choices = choiceModels.findAll({ where: { pollId: parent.id } });
+      return choices;
+    },
+    choice: async (parent, args) => {
+      const choice = choiceModels.findOne({
+        where: { pollId: parent.id, id: args.id }
+      });
+      return choice;
+    },
+    creator: async parent => {
+      const creator = userModels.findOne({ where: { id: parent.creatorId } });
+      return creator;
+    }
+  }
 };

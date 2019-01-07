@@ -31,3 +31,7 @@ type Mutation {
     choice: Int!
   ): Choice
 }
+
+type Subscription {
+  pollVoted: Choice
+}

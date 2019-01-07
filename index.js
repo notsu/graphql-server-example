@@ -23,7 +23,7 @@ const server = new ApolloServer({
     if (query.length > LIMIT_QUERY_SIZE) {
       res.status(400).send("400, Bad Request");
     }
-  }
+  },
 });
 
 server.listen(PORT).then(({ url }) => {
