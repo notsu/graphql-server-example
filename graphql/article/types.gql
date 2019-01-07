@@ -20,5 +20,5 @@ type Mutation {
   createArticle(
     title: String!
     authorId: Int!
-  ): Boolean
+  ): Article
 }

@@ -14,13 +14,13 @@ module.exports = {
     }
   },
   Mutation: {
-    createPoll: async ({ title, creatorId }) => {
+    createPoll: async (_, { title, creatorId }) => {
       return pollModels.create({ title, creatorId });
     },
-    createChoice: async ({ pollId, title }) => {
+    createChoice: async (_, { pollId, title }) => {
       return choiceModels.create({ pollId, title, point: 0 })
     },
-    votePoll: async ({ id, choice: choiceId }) => {
+    votePoll: async (_, { id, choice: choiceId }) => {
       const choice = choiceModels.findOne({ where: { pollId: id, id: choiceId } })
 
       if (choice) {

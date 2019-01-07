@@ -7,6 +7,7 @@ type Poll {
 }
 
 type Choice {
+  id: Int
   title: String
   point: Int
 }

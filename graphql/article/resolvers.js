@@ -14,7 +14,7 @@ module.exports = {
     }
   },
   Mutation: {
-    createArticle: async ({ title, authorId }) => {
+    createArticle: async (_, { title, authorId }) => {
       return articleModels.create({ title, authorId });
     }
   },
