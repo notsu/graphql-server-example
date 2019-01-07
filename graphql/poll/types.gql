@@ -33,5 +33,5 @@ type Mutation {
 }
 
 type Subscription {
-  pollVoted: Choice
+  pollVoted: Poll
 }

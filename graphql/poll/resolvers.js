@@ -31,7 +31,14 @@ module.exports = {
       if (choice) {
         choice.point += 1;
         choice.save();
-        pubsub.publish(CHOICE_VOTED, { pollVoted: choice });
+
+        const poll = await pollModels.findOne({ where: { id }, raw: true });
+        poll.choices = await choiceModels.findAll({
+          where: { pollId: id },
+          order: [["point", "DESC"]],
+          raw: true
+        });
+        pubsub.publish(CHOICE_VOTED, { pollVoted: poll });
       }
 
       return choice;
