@@ -21,6 +21,7 @@ const Choice = postgres.define("polls_choices", {
   },
   title: Sequelize.STRING,
   point: Sequelize.INTEGER,
+  pollId: Sequelize.INTEGER,
 }, {
   timestamps: false,
 });

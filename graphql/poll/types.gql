@@ -21,6 +21,10 @@ type Mutation {
     title: String!
     creatorId: Int!
   ): Poll
+  createChoice(
+    pollId: Int!
+    title: String!
+  ): Choice
   votePoll(
     id: Int!
     choice: Int!
