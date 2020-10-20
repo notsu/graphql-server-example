@@ -7,19 +7,19 @@
   "author": "Pichet Itngam",
   "license": "MIT",
   "dependencies": {
-    "apollo-server": "^2.16.0",
+    "apollo-server": "^2.18.2",
     "graphql": "^15.3.0",
     "graphql-depth-limit": "^1.1.0",
-    "graphql-validation-complexity": "^0.3.0",
+    "graphql-validation-complexity": "^0.4.2",
     "merge-graphql-schemas": "^1.7.8",
-    "pg": "^8.3.0",
-    "sequelize": "^6.3.3",
+    "pg": "^8.4.1",
+    "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0"
   },
   "scripts": {
     "start": "nodemon index.js"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.6"
   }
 }
